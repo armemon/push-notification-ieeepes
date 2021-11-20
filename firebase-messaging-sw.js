@@ -13,7 +13,7 @@ firebase.initializeApp({
     messagingSenderId: "550776961482",
     apiKey: "AIzaSyA61QQGt3wTGeCyA5GnWDAMkwwfWwenqNs",
     projectId: "ieeepesneduet-fb145",
-    appId: "1:550776961482:web:04b9fcbbe035393489f733",
+    appId: "1:550776961482:web:2c57b4ace9e667f589f733",
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
