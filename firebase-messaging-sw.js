@@ -19,6 +19,21 @@ firebase.initializeApp({
   measurementId: "G-VR43HZGTWH"
 });
 
+var firebaseConfig = {
+    apiKey: "AIzaSyBb_8XGl5Bqem-0LJrAnLGtkT8uH9q52JM",
+    authDomain: "ieee-push-notification.firebaseapp.com",
+    projectId: "ieee-push-notification",
+    storageBucket: "ieee-push-notification.appspot.com",
+    messagingSenderId: "583438195853",
+    appId: "1:583438195853:web:855942fd73bbb9af1916c4",
+    measurementId: "G-VR43HZGTWH"
+};
+firebase.initializeApp(firebaseConfig);
+
+// Retrieve firebase messaging
+const messaging = firebase.messaging();
+
+
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 const messaging = firebase.messaging();
