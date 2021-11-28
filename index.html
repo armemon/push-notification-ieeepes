@@ -1,68 +1,72 @@
 <html>
-    <title>Firebase Messaging Demo</title>
-    <style>
-        div {
-            margin-bottom: 15px;
-        }
-    </style>
-    <body>
-        <div id="token"></div>
-        <div id="msg"></div>
-        <div id="notis"></div>
-        <div id="err"></div>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+<title>Firebase Messaging Demo</title>
+<style>
+    div {
+        margin-bottom: 15px;
+    }
+</style>
 
-        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-messaging.js"></script>
-        <script>
-            MsgElem = document.getElementById('msg');
-            TokenElem = document.getElementById('token');
-            NotisElem = document.getElementById('notis');
-            ErrElem = document.getElementById('err');
+<body>
+    <div id="token"></div>
+    <div id="msg"></div>
+    <div id="notis"></div>
+    <div id="err"></div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
 
-            // TODO: Replace firebaseConfig you get from Firebase Console
-            var firebaseConfig = {
-                // apiKey: ...
-                // projectId: ...
-                // messagingSenderId: ...
-                // appId: ...
-                // ...other configs...
-            };
-            firebase.initializeApp(firebaseConfig);
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-messaging.js"></script>
+    <script>
+        MsgElem = document.getElementById('msg');
+        TokenElem = document.getElementById('token');
+        NotisElem = document.getElementById('notis');
+        ErrElem = document.getElementById('err');
 
-            const messaging = firebase.messaging();
-            messaging
-                .requestPermission()
-                .then(function () {
-                    MsgElem.innerHTML = 'Notification permission granted.';
-                    console.log('Notification permission granted.');
+        // TODO: Replace firebaseConfig you get from Firebase Console
+        var firebaseConfig = {
+            apiKey: "AIzaSyBb_8XGl5Bqem-0LJrAnLGtkT8uH9q52JM",
+            authDomain: "ieee-push-notification.firebaseapp.com",
+            projectId: "ieee-push-notification",
+            storageBucket: "ieee-push-notification.appspot.com",
+            messagingSenderId: "583438195853",
+            appId: "1:583438195853:web:855942fd73bbb9af1916c4",
+            measurementId: "G-VR43HZGTWH"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-                    // get the token in the form of promise
-                    return messaging.getToken();
-                })
-                .then(function (token) {
-                    TokenElem.innerHTML = 'Device token is : <br>' + token;
-                })
-                .catch(function (err) {
-                    ErrElem.innerHTML = ErrElem.innerHTML + '; ' + err;
-                    console.log('Unable to get permission to notify.', err);
-                });
+        const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function () {
+                MsgElem.innerHTML = 'Notification permission granted.';
+                console.log('Notification permission granted.');
 
-            let enableForegroundNotification = true;
-            messaging.onMessage(function (payload) {
-                console.log('Message received. ', payload);
-                NotisElem.innerHTML =
-                    NotisElem.innerHTML + JSON.stringify(payload);
-
-                if (enableForegroundNotification) {
-                    let notification = payload.notification;
-                    navigator.serviceWorker
-                        .getRegistrations()
-                        .then((registration) => {
-                            registration[0].showNotification(notification.title);
-                        });
-                }
+                // get the token in the form of promise
+                return messaging.getToken();
+            })
+            .then(function (token) {
+                TokenElem.innerHTML = 'Device token is : <br>' + token;
+            })
+            .catch(function (err) {
+                ErrElem.innerHTML = ErrElem.innerHTML + '; ' + err;
+                console.log('Unable to get permission to notify.', err);
             });
-        </script>
-    </body>
+
+        let enableForegroundNotification = true;
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+            NotisElem.innerHTML =
+                NotisElem.innerHTML + JSON.stringify(payload);
+
+            if (enableForegroundNotification) {
+                let notification = payload.notification;
+                navigator.serviceWorker
+                    .getRegistrations()
+                    .then((registration) => {
+                        registration[0].showNotification(notification.title);
+                    });
+            }
+        });
+    </script>
+</body>
+
 </html>
